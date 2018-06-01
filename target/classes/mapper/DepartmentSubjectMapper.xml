@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ecut.dao.DepartmentSubjectMapper" >
+  <resultMap id="BaseResultMap" type="com.ecut.pojo.DepartmentSubject" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="dsnumber" property="dsnumber" jdbcType="VARCHAR" />
+    <result column="department" property="department" jdbcType="VARCHAR" />
+    <result column="subject" property="subject" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, dsnumber, department, subject
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from department_subject
+    where id = #{id}
+  </select>
+  <select id="list" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from department_subject
+    where 1=1
+    <if test="id != null" >
+    	and id = #{id}
+    	</if>
+    <if test="dsnumber != null and '' != dsnumber" >
+        and dsnumber = #{dsnumber}
+      </if>
+      <if test="department != null and '' != department" >
+       and department = #{department}
+      </if>
+      <if test="subject != null and '' != subject" >
+        and subject = #{subject}
+      </if>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from department_subject
+    where id = #{id}
+  </delete>
+  <insert id="insert" parameterType="com.ecut.pojo.DepartmentSubject" >
+    insert into department_subject (id, dsnumber, department, 
+      subject)
+    values (#{id}, #{dsnumber}, #{department}, 
+      #{subject})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ecut.pojo.DepartmentSubject" >
+    insert into department_subject
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="dsnumber != null" >
+        dsnumber,
+      </if>
+      <if test="department != null" >
+        department,
+      </if>
+      <if test="subject != null" >
+        subject,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="dsnumber != null" >
+        #{dsnumber},
+      </if>
+      <if test="department != null" >
+        #{department},
+      </if>
+      <if test="subject != null" >
+        #{subject},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ecut.pojo.DepartmentSubject" >
+    update department_subject
+    <set >
+      <if test="dsnumber != null" >
+        dsnumber = #{dsnumber},
+      </if>
+      <if test="department != null" >
+        department = #{department},
+      </if>
+      <if test="subject != null" >
+        subject = #{subject},
+      </if>
+    </set>
+    where id = #{id}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ecut.pojo.DepartmentSubject" >
+    update department_subject
+    set dsnumber = #{dsnumber},
+      department = #{department},
+      subject = #{subject}
+    where id = #{id}
+  </update>
+</mapper>

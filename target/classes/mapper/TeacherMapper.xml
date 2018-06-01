@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ecut.dao.TeacherMapper" >
+  <resultMap id="BaseResultMap" type="com.ecut.pojo.Teacher" >
+    <id column="id" property="id" />
+    <result column="account" property="account" />
+    <result column="password" property="password" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, account, password
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from teacher
+    where id = #{id}
+  </select>
+  <select id="list" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from teacher
+    where 1=1
+    <if test="null != id">
+    	and id = #{id}
+    </if>
+    <if test="null != account and ''!=account">
+    	and account = #{account}
+    </if>
+    <if test="null != password and ''!=password">
+    	and password = #{password}
+    </if>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from teacher
+    where id = #{id}
+  </delete>
+  <insert id="insert" parameterType="com.ecut.pojo.Teacher" >
+    insert into teacher (id, account, password
+      )
+    values (#{id}, #{account}, #{password}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ecut.pojo.Teacher" >
+    insert into teacher
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="account != null" >
+        account,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="account != null" >
+        #{account},
+      </if>
+      <if test="password != null" >
+        #{password},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ecut.pojo.Teacher" >
+    update teacher
+    <set >
+      <if test="account != null" >
+        account = #{account},
+      </if>
+      <if test="password != null" >
+        password = #{password},
+      </if>
+    </set>
+    where id = #{id}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ecut.pojo.Teacher" >
+    update teacher
+    set account = #{account},
+      password = #{password}
+    where id = #{id}
+  </update>
+</mapper>

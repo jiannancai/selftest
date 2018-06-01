@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ecut.dao.CourseMapper" >
+  <resultMap id="BaseResultMap" type="com.ecut.pojo.Course" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="cou_number" property="couNumber" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="classroom" property="classroom" jdbcType="VARCHAR" />
+    <result column="teacher" property="teacher" jdbcType="VARCHAR" />
+    <result column="times" property="times" jdbcType="VARCHAR" />
+    <result column="begin_time" property="beginTime" jdbcType="DATE" />
+    <result column="end_time" property="endTime" jdbcType="DATE" />
+    <result column="plan_count" property="planCount" jdbcType="INTEGER" />
+    <result column="actual_count" property="actualCount" jdbcType="INTEGER" />
+    <result column="remain_count" property="remainCount" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, cou_number, name, classroom, teacher, times, begin_time, end_time, plan_count, 
+    actual_count, remain_count
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from course
+    where id = #{id}
+  </select>
+  <select id="list" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from course
+    where 1=1
+    <if test=" id != null">
+    	and id = #{id}
+    </if>
+    <if test="couNumber != null and '' != couNumber" >
+        and cou_number = #{couNumber}
+      </if>
+      <if test="name != null and '' != name" >
+        and name = #{name}
+      </if>
+      <if test="classroom != null and '' != classroom" >
+        and classroom = #{classroom}
+      </if>
+      <if test="teacher != null and '' != teacher" >
+        and teacher = #{teacher}
+      </if>
+      <if test="times != null and '' != times" >
+        and times = #{times}
+      </if>
+      <if test="beginTime != null" >
+        and begin_time = #{beginTime}
+      </if>
+      <if test="endTime != null" >
+        and end_time = #{endTime}
+      </if>
+      <if test="planCount != null" >
+        and plan_count = #{planCount}
+      </if>
+      <if test="actualCount != null" >
+        and actual_count = #{actualCount}
+      </if>
+      <if test="remainCount != null" >
+        and remain_count = #{remainCount}
+      </if>
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from course
+    where id = #{id}
+  </delete>
+  <insert id="insert" parameterType="com.ecut.pojo.Course" >
+    insert into course (id, cou_number, name, 
+      classroom, teacher, times, 
+      begin_time, end_time, plan_count, 
+      actual_count, remain_count)
+    values (#{id}, #{couNumber}, #{name}, 
+      #{classroom}, #{teacher}, #{times}, 
+      #{beginTime}, #{endTime}, #{planCount}, 
+      #{actualCount}, #{remainCount})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ecut.pojo.Course" >
+    insert into course
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="couNumber != null" >
+        cou_number,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="classroom != null" >
+        classroom,
+      </if>
+      <if test="teacher != null" >
+        teacher,
+      </if>
+      <if test="times != null" >
+        times,
+      </if>
+      <if test="beginTime != null" >
+        begin_time,
+      </if>
+      <if test="endTime != null" >
+        end_time,
+      </if>
+      <if test="planCount != null" >
+        plan_count,
+      </if>
+      <if test="actualCount != null" >
+        actual_count,
+      </if>
+      <if test="remainCount != null" >
+        remain_count,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="couNumber != null" >
+        #{couNumber},
+      </if>
+      <if test="name != null" >
+        #{name},
+      </if>
+      <if test="classroom != null" >
+        #{classroom},
+      </if>
+      <if test="teacher != null" >
+        #{teacher},
+      </if>
+      <if test="times != null" >
+        #{times},
+      </if>
+      <if test="beginTime != null" >
+        #{beginTime},
+      </if>
+      <if test="endTime != null" >
+        #{endTime},
+      </if>
+      <if test="planCount != null" >
+        #{planCount},
+      </if>
+      <if test="actualCount != null" >
+        #{actualCount},
+      </if>
+      <if test="remainCount != null" >
+        #{remainCount},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ecut.pojo.Course" >
+    update course
+    <set >
+      <if test="couNumber != null" >
+        cou_number = #{couNumber},
+      </if>
+      <if test="name != null" >
+        name = #{name},
+      </if>
+      <if test="classroom != null" >
+        classroom = #{classroom},
+      </if>
+      <if test="teacher != null" >
+        teacher = #{teacher},
+      </if>
+      <if test="times != null" >
+        times = #{times},
+      </if>
+      <if test="beginTime != null" >
+        begin_time = #{beginTime},
+      </if>
+      <if test="endTime != null" >
+        end_time = #{endTime},
+      </if>
+      <if test="planCount != null" >
+        plan_count = #{planCount},
+      </if>
+      <if test="actualCount != null" >
+        actual_count = #{actualCount},
+      </if>
+      <if test="remainCount != null" >
+        remain_count = #{remainCount},
+      </if>
+    </set>
+    where id = #{id}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ecut.pojo.Course" >
+    update course
+    set cou_number = #{couNumber},
+      name = #{name},
+      classroom = #{classroom},
+      teacher = #{teacher},
+      times = #{times},
+      begin_time = #{beginTime},
+      end_time = #{endTime},
+      plan_count = #{planCount},
+      actual_count = #{actualCount},
+      remain_count = #{remainCount}
+    where id = #{id}
+  </update>
+</mapper>
